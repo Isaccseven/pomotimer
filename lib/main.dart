@@ -1,5 +1,6 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 
@@ -19,9 +20,12 @@ void main() {
       ),
     ],
   );
-
+  SystemChrome.setPreferredOrientations(
+    [DeviceOrientation.portraitUp],
+  );
   runApp(
     GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       title: "Application",
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,

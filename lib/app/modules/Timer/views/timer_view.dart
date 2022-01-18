@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -168,7 +169,10 @@ class TimerView extends GetView<TimerController> {
               controller.isStarted.value = true;
             },
             onComplete: () {
-              createBasicNotification();
+              createBasicNotification(
+                '${Emojis.time_alarm_clock} Finished',
+                'Your Countdown of ${controller.formatedTime(controller.duration.value)} is over',
+              );
               controller.isPaused.value = false;
               controller.isStarted.value = false;
               print('Countdown Ended');

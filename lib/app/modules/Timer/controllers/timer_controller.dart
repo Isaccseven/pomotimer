@@ -4,8 +4,6 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pomotimer_time_management/app/modules/Timer/views/timer_view.dart';
-import 'package:pomotimer_time_management/app/modules/root/controllers/root_controller.dart';
 
 class TimerController extends GetxController {
   var activeMethod = 0.obs;
@@ -20,6 +18,32 @@ class TimerController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    requestPermissions();
+    addActionStream();
+  }
+
+  @override
+  void onReady() {
+    duration.value = getCountDownTime();
+    countdownController.value.restart(duration: getCountDownTime());
+    countdownController.value.pause();
+    isPaused.value = true;
+    super.onReady();
+  }
+
+  void addActionStream() {
+    AwesomeNotifications().actionStream.listen((notification) {
+      if (notification.channelKey == 'basic_channel' && Platform.isIOS) {
+        AwesomeNotifications().getGlobalBadgeCounter().then(
+              (value) =>
+                  AwesomeNotifications().setGlobalBadgeCounter(value - 1),
+            );
+        Get.offNamedUntil("root", (route) => route.isFirst);
+      }
+    });
+  }
+
+  void requestPermissions() {
     AwesomeNotifications().isNotificationAllowed().then(
           (isAllowed) => {
             if (!isAllowed)
@@ -35,33 +59,22 @@ class TimerController extends GetxController {
               },
           },
         );
-
-    /*AwesomeNotifications().createdStream.listen((notification) {
-      Get.showSnackbar(GetSnackBar(
-        messageText: Text(
-          'Notification Created on ${notification.channelKey}',
-        ),
-      ));
-    });*/
-
-    AwesomeNotifications().actionStream.listen((notification) {
-      if (notification.channelKey == 'basic_channel' && Platform.isIOS) {
-        AwesomeNotifications().getGlobalBadgeCounter().then(
-              (value) =>
-                  AwesomeNotifications().setGlobalBadgeCounter(value - 1),
-            );
-        Get.offNamedUntil("root", (route) => route.isFirst);
-      }
-    });
   }
 
-  @override
-  void onReady() {
-    duration.value = getCountDownTime();
-    countdownController.value.restart(duration: getCountDownTime());
-    countdownController.value.pause();
-    isPaused.value = true;
-    super.onReady();
+  // Format time for notifications
+  String formatedTime(int secTime) {
+    String getParsedTime(String time) {
+      if (time.length <= 1) return "0$time";
+      return time;
+    }
+
+    int min = secTime ~/ 60;
+    int sec = secTime % 60;
+
+    String parsedTime =
+        getParsedTime(min.toString()) + ":" + getParsedTime(sec.toString() );
+
+    return parsedTime;
   }
 
   void counterHandler() {
@@ -79,6 +92,7 @@ class TimerController extends GetxController {
     }
   }
 
+  // Handle changes when method is switched
   void handleNewTap(int index) {
     activeMethod.value = index;
     isStarted.value = false;
@@ -89,6 +103,7 @@ class TimerController extends GetxController {
     isPaused.value = true;
   }
 
+  // helper for getting correct icon of playbutton
   IconData getIcon() {
     if (isStarted.isFalse) {
       return Icons.play_arrow;
@@ -102,6 +117,7 @@ class TimerController extends GetxController {
     return Icons.add;
   }
 
+  // setup time for different methods
   int getCountDownTime() {
     switch (activeMethod.value) {
       case 0:

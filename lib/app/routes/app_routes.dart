@@ -8,6 +8,7 @@ abstract class Routes {
   static const TIMER = _Paths.TIMER;
   static const TASK = _Paths.TASK;
   static const STATISTICS = _Paths.STATISTICS;
+  static const SETTINGS = _Paths.SETTINGS;
 }
 
 abstract class _Paths {
@@ -17,4 +18,5 @@ abstract class _Paths {
   static const TIMER = '/timer';
   static const TASK = '/task';
   static const STATISTICS = '/statistics';
+  static const SETTINGS = '/settings';
 }
