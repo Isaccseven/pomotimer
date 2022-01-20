@@ -171,7 +171,7 @@ class TimerView extends GetView<TimerController> {
             onComplete: () {
               createBasicNotification(
                 '${Emojis.time_alarm_clock} Finished',
-                'Your Countdown of ${controller.formatedTime(controller.duration.value)} is over',
+                'Your Countdown of ${controller.formatedTime(controller.duration.value)} minutes is over',
               );
               controller.isPaused.value = false;
               controller.isStarted.value = false;

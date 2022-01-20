@@ -4,15 +4,14 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class TimerController extends GetxController {
   var activeMethod = 0.obs;
-
   var isStarted = false.obs;
   var isPaused = false.obs;
-
-  var duration = 1500.obs;
-
+  var duration = 0.obs;
+  final box = GetStorage();
   Rx<CountDownController> countdownController = CountDownController().obs;
 
   @override
@@ -72,7 +71,7 @@ class TimerController extends GetxController {
     int sec = secTime % 60;
 
     String parsedTime =
-        getParsedTime(min.toString()) + ":" + getParsedTime(sec.toString() );
+        getParsedTime(min.toString()) + ":" + getParsedTime(sec.toString());
 
     return parsedTime;
   }
@@ -119,14 +118,29 @@ class TimerController extends GetxController {
 
   // setup time for different methods
   int getCountDownTime() {
+    String orgTime;
     switch (activeMethod.value) {
       case 0:
-        return 1500;
+        orgTime = box.read("pomodoroTime") ?? "25";
+        int time = int.parse(orgTime);
+        if(time==60){
+          return 3540;
+        }
+        return time * 60;
       case 1:
-        return 900;
+        orgTime = box.read("longBreak") ?? "15";
+        int time = int.parse(orgTime);
+        if(time==60){
+          return 3540;
+        }
+        return time * 60;
       case 2:
-        //return 300;
-        return 5;
+        orgTime = box.read("shortBreak") ?? "5";
+        int time = int.parse(orgTime);
+        if(time==60){
+          return 3540;
+        }
+        return time * 60;
       default:
         return 0;
     }

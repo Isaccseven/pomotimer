@@ -11,6 +11,7 @@ dependencies:
   circular_countdown_timer: 0.2.0
   awesome_notifications: ^0.6.21
   timezone: 0.8.0
+  get_storage: 2.0.3
   flutter: 
     sdk: flutter
 
