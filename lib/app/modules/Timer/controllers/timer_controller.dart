@@ -5,6 +5,7 @@ import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:pomotimer_time_management/app/constants/colors.dart';
 
 class TimerController extends GetxController {
   var activeMethod = 0.obs;
@@ -49,7 +50,16 @@ class TimerController extends GetxController {
               {
                 Get.defaultDialog(
                   title: 'Allow Notifications',
-                  content: Text('Our app would like to send you notifications'),
+                  backgroundColor: Colors.grey.shade300,
+                  buttonColor: Colors.grey.shade700,
+                  cancelTextColor: GlobalColors.red,
+                  confirmTextColor: Colors.grey.shade400,
+                  content: Center(
+                    child: Text(
+                      'Our app would like to send you notifications',
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
                   onCancel: () => Get.back(),
                   onConfirm: () => AwesomeNotifications()
                       .requestPermissionToSendNotifications()
@@ -123,21 +133,21 @@ class TimerController extends GetxController {
       case 0:
         orgTime = box.read("pomodoroTime") ?? "25";
         int time = int.parse(orgTime);
-        if(time==60){
+        if (time == 60) {
           return 3540;
         }
         return time * 60;
       case 1:
         orgTime = box.read("longBreak") ?? "15";
         int time = int.parse(orgTime);
-        if(time==60){
+        if (time == 60) {
           return 3540;
         }
         return time * 60;
       case 2:
         orgTime = box.read("shortBreak") ?? "5";
         int time = int.parse(orgTime);
-        if(time==60){
+        if (time == 60) {
           return 3540;
         }
         return time * 60;
