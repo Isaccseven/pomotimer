@@ -19,5 +19,5 @@ PomoTimer is build on the Getx Framework
 </p>
 
 ## Contact
-- [Luca] (https://github.com/Isaccseven)
-- If you find the content of this repository useful and you have some extra money, you can donate to me through [PayPal (https://paypal.me/lucaahenn)
+- [ Luca ] (https://github.com/Isaccseven/)
+- If you find the content of this repository useful and you have some extra money, you can donate to me through [PayPal] (https://paypal.me/lucaahenn/)
