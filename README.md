@@ -2,6 +2,11 @@
 
 # PomoTimer is an app that tracks your pomodoro cycle.
 
+## Features
+- Set custom timer for pomodoro time, short break and long break
+- Push notifications with sound
+
+
 ## Architecture
 PomoTimer is build on the Getx Framework
 
@@ -12,3 +17,7 @@ PomoTimer is build on the Getx Framework
   <img src="https://github.com/Isaccseven/pomotimer_time_management/blob/master/UpdateSettings.png?raw=true" width="20%" />
   <img src="https://github.com/Isaccseven/pomotimer_time_management/blob/master/Notification.png?raw=true" width="20%" />
 </p>
+
+## Contact
+- [Luca] (https://github.com/Isaccseven)
+- - If you find the content of this repository useful and you have some extra money, you can donate to me through [PayPal (https://paypal.me/lucaahenn?country.x=DE&locale.x=de_DE)
